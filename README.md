@@ -528,16 +528,7 @@ Through this project, I developed practical experience with:
 
 The project demonstrates how structured and semi-structured data can be stored, queried, transformed, and analyzed using different technologies.
 
-By combining **PostgreSQL, SQL, Python, Pandas, XML, and XQuery**, the project provides hands-on experience with database management and data analysis workflows that are relevant to entry-level **Data Analyst, Database Analyst, and Junior Data roles**.
 
----
 
-## 👤 Author
-
-**Mohammad**
-
-**BSc Computer Science — Data Science Specialization**
-
-Skills: **SQL | Python | R | Excel | Tableau | Power BI | PostgreSQL | Pandas**
 
 📌 Interested in **Entry-Level Data Analyst and Data Analytics opportunities**.
