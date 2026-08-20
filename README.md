@@ -1,19 +1,82 @@
-## Project Overview
+Movie & Academic Database System Implementation
 
-Focused on the application of advanced data handling and software development techniques, this project involved complex problem-solving and programming to manage large datasets. The work entailed structuring, parsing, and manipulating data to support efficient data management and retrieval. This project showcased the ability to adapt to various data formats and extract actionable insights from structured datasets.
+This repository contains my complete database coursework and lab implementations. It covers initial database conceptual design with ER/UML diagrams, table creation in PostgreSQL, detailed SQL querying, Python integration for data extraction, and XML/XQuery processing for semi-structured data.
 
-### Core Competencies Demonstrated
+Project Overview & ER Diagram
 
-- **Data Structure Design:** Designed robust data structures using XML, which facilitated the logical organization and long-term management of data.
-- **Programming and Scripting:** Applied programming skills to manipulate data structures, extract key data points, and transform them into a usable format for analysis and reporting.
-- **Problem Solving:** Tackled complex data manipulation challenges, demonstrating an ability to devise and implement effective solutions to handle data accurately and efficiently.
+The overall system architecture models two main domain areas: academic structure (Faculties, Students, Departments, Courses) and a media management network (Movies, Directors, Actors, Cinemas, and Tickets).
 
-### Technologies Leveraged
+1. Project Overview & ER Diagram
 
-- **XML:** Leveraged XML extensively to structure data, providing a framework for efficient data manipulation and accessibility.
-- **Software Development Tools:** Utilized industry-standard tools and practices for software development, focusing on data handling and processing techniques.
+The overall system architecture models two main domain areas: academic structure (Faculties, Students, Departments, Courses) and a media management network (Movies, Directors, Actors, Cinemas, and Tickets).
 
-### Project Goals
+2. Database Schema & Tables Setup
 
-- To enhance technical proficiency in data handling and manipulation using structured formats like XML.
-- To develop and refine problem-solving skills by applying software development principles and data management strategies.
+The relational model was implemented in PostgreSQL (lab05 database). Below are the main tables along with their primary key (PK) and foreign key (FK) setups:
+```mermaid
+erDiagram
+
+    ACTOR {
+        int ActorID PK
+        string FirstName
+        string LastName
+        date DateOfBirth
+        string UniversityName
+        string DepartmentName
+    }
+
+    MOVIE {
+        string MovieName PK
+        date ReleaseDate PK
+        decimal Rating
+        decimal Budget
+    }
+
+    DIRECTOR {
+        int DirectorID PK
+        string FirstName
+        string LastName
+        string UniversityName
+        string DepartmentName
+        int YearOfBirth
+    }
+
+    CINEMA {
+        int CinemaID PK
+        string CinemaName
+        string City
+        string StateProvince
+        string Country
+    }
+
+    MOVIE_CAST {
+        int ActorID PK, FK
+        string MovieName PK, FK
+        date ReleaseDate PK, FK
+    }
+
+    DIRECTOR_CAST {
+        int DirectorID FK
+        string MovieName FK
+        date ReleaseDate FK
+    }
+
+    MOVIE_TICKET {
+        int TicketID PK
+        int CinemaID FK
+        decimal Price
+        time ShowingTime
+    }
+
+    ACTOR ||--o{ MOVIE_CAST : "acts in"
+    MOVIE ||--o{ MOVIE_CAST : "has actors"
+
+    DIRECTOR ||--o{ DIRECTOR_CAST : "directs"
+    MOVIE ||--o{ DIRECTOR_CAST : "has directors"
+
+    CINEMA ||--o{ MOVIE_TICKET : "sells"
+```
+
+
+
+The database uses primary and foreign keys to establish relationships between entities and supports tracking movie releases, cast members, directors, cinema locations, ticket prices, and showing times.
