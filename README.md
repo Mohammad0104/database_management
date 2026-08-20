@@ -2,25 +2,25 @@
 
 ## 📌 Project Overview
 
-This project focuses on designing and working with a relational movie database using **PostgreSQL**. The database stores information about movies, actors, directors, cinemas, movie casts, and movie tickets.
+This project is about building and working with a movie database using **PostgreSQL**. The database contains information about movies, actors, directors, cinemas, movie casts, and movie tickets.
 
-The project demonstrates practical skills in **relational database design, SQL querying, data analysis, Python database integration, ETL, and semi-structured data processing using XML and XQuery**.
+I worked on this project to improve my practical skills in **SQL, database design, Python, data analysis, and XML/XQuery**. I created relationships between different tables, wrote SQL queries to find and analyze data, and used Python to connect to the database and work with the results.
 
-The main goal was to build a structured database and use SQL and Python to extract meaningful information, perform calculations, manipulate data, and work with different data formats.
+The project also includes working with XML data to understand how semi-structured data can be stored and queried.
 
 ---
 
 ## 🗂️ Database Structure
 
-The database consists of the following main entities:
+The database includes the following tables:
 
-* **Actor** — Contains actor information, including name, date of birth, and educational background.
+* **Actor** — Stores actor information such as name, date of birth, and education.
 * **Movie** — Stores movie names, release dates, ratings, and budgets.
-* **Director** — Contains director information and educational background.
-* **Cinema** — Stores cinema names and geographical information.
-* **MovieCast** — Maps actors to movies through a many-to-many relationship.
-* **DirectorCast** — Associates directors with their respective movies.
-* **MovieTicket** — Stores ticket information, including price, cinema, and showing time.
+* **Director** — Stores director information and education details.
+* **Cinema** — Stores cinema names and location information.
+* **MovieCast** — Connects actors with the movies they appear in.
+* **DirectorCast** — Connects directors with the movies they direct.
+* **MovieTicket** — Stores ticket information such as price, cinema, and showing time.
 
 ### Entity Relationship Diagram
 
@@ -92,56 +92,51 @@ erDiagram
 
 ## 📋 Table Details
 
-| Table            | Description                                                               |
-| ---------------- | ------------------------------------------------------------------------- |
-| **Actor**        | Contains personal information, date of birth, and educational background. |
-| **Movie**        | Stores movie records, release dates, ratings, and budgets.                |
-| **Director**     | Contains director information and educational background.                 |
-| **Cinema**       | Stores cinema names and location information.                             |
-| **MovieCast**    | Represents the many-to-many relationship between actors and movies.       |
-| **DirectorCast** | Maps directors to their respective movie projects.                        |
-| **MovieTicket**  | Tracks ticket information, including price, cinema, and showing time.     |
+| Table            | Description                                                     |
+| ---------------- | --------------------------------------------------------------- |
+| **Actor**        | Stores actor information, date of birth, and education details. |
+| **Movie**        | Stores movie names, release dates, ratings, and budgets.        |
+| **Director**     | Stores director information and education details.              |
+| **Cinema**       | Stores cinema names and location details.                       |
+| **MovieCast**    | Connects actors with the movies they appear in.                 |
+| **DirectorCast** | Connects directors with their movies.                           |
+| **MovieTicket**  | Stores ticket price, cinema, and showing time.                  |
 
 ---
 
-# 🛠️ Technologies Used
+## 🛠️ Technologies Used
 
-* **PostgreSQL**
-* **SQL**
-* **Python**
-* **Pandas**
-* **Psycopg2**
-* **XML**
-* **XQuery**
-* **pgAdmin 4**
-* **Git & GitHub**
+* PostgreSQL
+* SQL
+* Python
+* Pandas
+* Psycopg2
+* XML
+* XQuery
+* pgAdmin 4
+* Git & GitHub
 
 ---
 
-# 1. 🗄️ Relational Database Design
+# 1. 🗄️ Database Design
 
-The database was designed using a relational model with primary keys and foreign keys to maintain relationships between tables.
+I designed the database using a relational model with **primary keys and foreign keys** to connect the different tables.
 
-### Key Relationships
+For example, an actor can be part of many movies, and a movie can have many actors. The `MovieCast` table is used to manage this many-to-many relationship.
 
-* One **Actor** can appear in multiple movies.
-* One **Movie** can contain multiple actors.
-* One **Director** can direct multiple movies.
-* A **Cinema** can sell multiple movie tickets.
-* `MovieCast` handles the many-to-many relationship between actors and movies.
-* `DirectorCast` connects directors with movies.
+Similarly, the `DirectorCast` table connects directors with the movies they direct.
 
-This structure helps reduce data duplication while maintaining data integrity through relational constraints.
+This design helps keep the data organized and avoids storing the same information in multiple places.
 
 ---
 
 # 2. 🔎 SQL Queries & Data Analysis
 
-Several SQL queries were written to retrieve, filter, join, and analyze information stored in the database.
+I wrote different SQL queries to filter, join, and analyze the data in the database.
 
 ## Filter Directors by Country
 
-This query retrieves directors from Canada.
+This query finds directors who are from Canada:
 
 ```sql
 SELECT 
@@ -151,20 +146,18 @@ FROM "Director"
 WHERE "Director"."Country" = 'Canada';
 ```
 
-### What it demonstrates
+This query helped me practice:
 
 * `SELECT`
+* `WHERE`
 * Column aliases
-* `WHERE` filtering
-* Retrieving specific records based on conditions
+* Filtering data
 
 ---
 
-## 🔗 Join Tables & Multi-Currency Calculation
+## 🔗 Joining Tables & Currency Conversion
 
-This query joins the `Movie`, `MovieCast`, and `Actor` tables to identify actors associated with higher-budget movies.
-
-It also converts movie budgets from USD into several currencies.
+This query joins the `Movie`, `MovieCast`, and `Actor` tables. It finds movies with a budget of at least 1.5 million and calculates the budget in different currencies.
 
 ```sql
 SELECT 
@@ -186,22 +179,21 @@ JOIN "Actor"
 WHERE "Movie"."Budget" >= 1500000;
 ```
 
-### What it demonstrates
+This helped me practice:
 
-* Multi-table joins
+* SQL joins
 * Foreign key relationships
-* Filtering with conditions
+* Filtering
 * Calculated columns
-* Currency conversion
-* Data transformation using SQL
+* Basic data transformation
+
+> The exchange rates used in this query are fixed values for the purpose of the project.
 
 ---
 
-## 📊 Aggregations & Average Age Calculation
+## 📊 Movie Budget Analysis
 
-### Movie Budget Statistics
-
-Calculates the minimum, average, and maximum movie budgets.
+I also used aggregate functions to find the minimum, average, and maximum movie budgets.
 
 ```sql
 SELECT 
@@ -213,35 +205,27 @@ FROM "Movie";
 
 ### Average Actor Age
 
-Calculates the average age of actors based on their date of birth.
-
 ```sql
 SELECT 
     AVG(2022 - EXTRACT(YEAR FROM "DateOfBirth")) AS "Average_Age"
 FROM "Actor";
 ```
 
-### What it demonstrates
+These queries helped me practice:
 
 * `MIN()`
 * `AVG()`
 * `MAX()`
-* Date extraction
-* Aggregate calculations
+* Date calculations
+* Aggregate functions
 
 ---
 
-# 3. 🐍 Python Database Integration & ETL
+# 3. 🐍 Python & PostgreSQL
 
-Python was used to connect to PostgreSQL, execute SQL queries, retrieve results, and process the data using **Pandas**.
+I used **Python** to connect to PostgreSQL, run SQL queries, and work with the results using **Pandas**.
 
-The project uses the `psycopg2` library to establish the PostgreSQL connection.
-
-## Extract Data into Pandas
-
-The following example retrieves the average actor age from PostgreSQL and stores the result in a Pandas DataFrame.
-
-> **Security note:** Database passwords should never be hard-coded in a public GitHub repository. Use environment variables instead.
+For example, I used Python to get the average age of actors from the database and store the result in a Pandas DataFrame.
 
 ```python
 import os
@@ -273,19 +257,19 @@ cursor.close()
 connection.close()
 ```
 
-### What it demonstrates
+This gave me experience with:
 
-* Python-to-PostgreSQL connectivity
-* SQL execution through Python
-* Extracting database results
-* Pandas DataFrame creation
-* Basic ETL workflow
+* Connecting Python to PostgreSQL
+* Running SQL from Python
+* Retrieving database results
+* Creating Pandas DataFrames
+* Basic ETL processes
 
 ---
 
-# 4. ➕ Insert Records Using Python
+# 4. ➕ Adding Data with Python
 
-Python was also used to insert new records into the database using parameterized SQL queries.
+I also used Python to insert new records into the database.
 
 ```python
 import os
@@ -318,17 +302,15 @@ cursor.close()
 connection.close()
 ```
 
-### Why parameterized queries?
-
-Parameterized queries help prevent SQL injection and provide a safer way to insert dynamic values into a database.
+I used **parameterized queries** when inserting data. This is a safer way to work with user-provided or changing values and helps reduce the risk of SQL injection.
 
 ---
 
-# 5. 📄 Semi-Structured Data — XML & XQuery
+# 5. 📄 XML & XQuery
 
-In addition to relational data, the project explores **semi-structured data** using XML and XQuery.
+The project also includes an example of working with **semi-structured data** using XML and XQuery.
 
-## Sample XML Document
+## Sample XML
 
 ```xml
 <MOVIES>
@@ -349,13 +331,13 @@ In addition to relational data, the project explores **semi-structured data** us
 </MOVIES>
 ```
 
-The XML document represents movie information using a hierarchical structure rather than relational tables.
+Unlike a relational database, XML stores information in a hierarchical structure.
 
 ---
 
 ## 🔍 XQuery
 
-The following XQuery retrieves actors younger than 35 and sorts them by age.
+The following query finds actors who are younger than 35 and sorts them by age.
 
 ```xquery
 xquery version "3.0";
@@ -366,29 +348,26 @@ order by $actor/age
 return $actor
 ```
 
-### What it demonstrates
+This gave me experience with:
 
-* XML navigation
+* XML data
+* XQuery
 * Filtering XML elements
-* `FLWOR` expressions
-* Conditional filtering
-* Sorting XML data
+* Sorting data
+* FLWOR expressions
 
 ---
 
-# 6. ⚙️ Requirements & Setup
+# ⚙️ Requirements
 
-## Software Requirements
+To run this project, you will need:
 
 * PostgreSQL 10+
 * pgAdmin 4
 * Python 3.x
 * Git
-* GitHub
 
-## Python Libraries
-
-Install the required Python packages with:
+### Python Libraries
 
 ```bash
 pip install psycopg2-binary pandas
@@ -396,52 +375,45 @@ pip install psycopg2-binary pandas
 
 ---
 
-# 🚀 Getting Started
+# 🚀 How to Run
 
-## 1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/yourusername/movie-database.git
 cd movie-database
 ```
 
-## 2. Create the PostgreSQL Database
+### 2. Set Up PostgreSQL
 
-Create a PostgreSQL database and configure the required tables using the SQL scripts included in the repository.
+Create the database and run the SQL scripts included in the repository.
 
-## 3. Configure Database Credentials
-
-Instead of storing credentials directly in Python, set an environment variable.
-
-### Windows PowerShell
-
-```powershell
-$env:DB_PASSWORD="your_password"
-```
-
-### macOS / Linux
-
-```bash
-export DB_PASSWORD="your_password"
-```
-
-## 4. Install Dependencies
+### 3. Install Python Libraries
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Example `requirements.txt`:
+### 4. Configure Database Password
 
-```text
-psycopg2-binary
-pandas
+I recommend using an environment variable instead of putting your database password directly in the Python code.
+
+**Windows PowerShell:**
+
+```powershell
+$env:DB_PASSWORD="your_password"
 ```
 
-## 5. Run the Python Scripts
+**macOS/Linux:**
 
 ```bash
-python scripts/database_analysis.py
+export DB_PASSWORD="your_password"
+```
+
+### 5. Run the Python Script
+
+```bash
+python python/data_analysis.py
 ```
 
 ---
@@ -476,21 +448,21 @@ movie-database/
 
 # 🔐 Security
 
-Sensitive database credentials should **never** be committed to GitHub.
+Never upload database passwords or other sensitive information to GitHub.
 
-Use environment variables or a `.env` file instead.
+For example, instead of writing:
 
-Example:
-
-```text
-DB_HOST=localhost
-DB_PORT=5433
-DB_NAME=lab05
-DB_USER=postgres
-DB_PASSWORD=your_password
+```python
+password="mypassword"
 ```
 
-Add `.env` to `.gitignore`:
+use:
+
+```python
+password=os.getenv("DB_PASSWORD")
+```
+
+Also add `.env` to your `.gitignore` file if you use one.
 
 ```text
 .env
@@ -500,35 +472,45 @@ __pycache__/
 
 ---
 
-# 💡 Key Skills Demonstrated
+# 💡 Skills I Practiced
 
-Through this project, I developed practical experience with:
+Through this project, I gained hands-on practice with:
 
-* Relational database design
-* Entity Relationship Diagrams
-* Primary and foreign keys
-* SQL querying
-* Filtering and sorting
-* Multi-table joins
-* Aggregate functions
-* Data calculations and transformations
+* SQL
 * PostgreSQL
-* Python database connectivity
+* Relational database design
+* ER diagrams
+* Primary and foreign keys
+* SQL joins
+* Data filtering
+* Aggregate functions
+* Data calculations
+* Python
 * Pandas
-* ETL concepts
-* Parameterized SQL queries
-* XML data structures
-* XQuery and FLWOR expressions
-* Data security and credential management
+* Psycopg2
+* ETL
+* XML
+* XQuery
+* Data transformation
 * Git and GitHub
 
 ---
 
-# 🎯 Project Objective
+# 🎯 What I Learned
 
-The project demonstrates how structured and semi-structured data can be stored, queried, transformed, and analyzed using different technologies.
+This project helped me understand how databases are designed and how SQL can be used to work with real data. I also learned how to connect a PostgreSQL database with Python and use Pandas to work with the data.
 
+Working with XML and XQuery also gave me experience with a different type of data structure outside of traditional relational databases.
 
+Overall, this project helped me build a stronger foundation in **SQL, databases, Python, and data analysis**, which I can apply to entry-level **Data Analyst and Data Analytics** roles.
 
+---
 
-📌 Interested in **Entry-Level Data Analyst and Data Analytics opportunities**.
+## 👤 About Me
+
+**Mohammad**
+BSc Computer Science — Data Science Specialization
+
+**Skills:** SQL • Python • R • Excel • Tableau • Power BI • PostgreSQL • Pandas
+
+I am currently looking for **entry-level Data Analyst and Data Analytics opportunities** where I can apply my skills, learn from an experienced team, and grow as a data professional.
